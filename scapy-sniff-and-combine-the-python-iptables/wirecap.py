@@ -1,6 +1,6 @@
 from scapy.all import *
 import iptc
-
+codi
 
 class wirecap:
     def __init__(self, method, filter_sentence, eth, count):
