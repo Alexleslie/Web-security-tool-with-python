@@ -23,7 +23,6 @@ class Application(Frame):
         X = webshell_vectorizer.transform(file_content)
 
         bad_list = []
-        print(type(X))
         for i in range(X.shape[0]):
             result = clf.predict(X[i])
             if result == 1:
