@@ -1,67 +1,45 @@
-import os
 from sklearn.feature_extraction.text import CountVectorizer
-import sys
-import numpy as np
-from sklearn import cross_validation
-from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.externals import joblib
+from FileTravel import visitDir
 
 pattern = r'\b\w+\b\(|\'\w+\''
-
-full_files = []
-
-
-def load_file(file_path):
-    t = ''
-    with open(file_path) as f:
-        for line in f:
-            line = line.strip('\n')
-            t += line
-    return t
-
-
-def visitDir(path):
-    file_content = []
-    if not os.path.isdir(path):
-        print('ERROR:', path, 'is not a directory or does not exist')
-        return
-    list_dirs = os.walk(path)
-
-    for root, dirs, files in list_dirs:
-        # for d in dirs:
-        #     print(os.path.join(root, d))
-        for f in files:
-            file = os.path.join(root, f)
-            if 'php' in file:
-                file_content.append(load_file(file))
-                full_files.append(file)
-    return file_content
 
 
 webshell_bigram = CountVectorizer(ngram_range=(1, 1), decode_error='ignore',
                                   token_pattern=pattern, min_df=1)
 
+webshell_tdf = TfidfVectorizer(ngram_range=(1, 2), decode_error='ignore',analyzer='char',sublinear_tf='True',
+                               token_pattern=pattern, min_df=0.0)
 
-file_content_1 = visitDir('data/wordpress')
-file_content_2 = visitDir('data/PHP-WEBSHELL/xiaoma/')
+
+file_content_1, _ = visitDir('data/good/', '.php')[:730]
+file_content_2, _ = visitDir('data/bad/', '.php')[:730]
 yGood = [1 for _ in range(0, len(file_content_1))]
 yBad = [0 for _ in range(0, len(file_content_2))]
-
+print(len(yBad))
 y = yGood + yBad
 webshell_files_content = file_content_1 + file_content_2
 
-X = webshell_bigram.fit_transform(webshell_files_content)
+webshell_tdf.fit(webshell_files_content)
+# joblib.dump(webshell_tdf, 'AndShell_dict.m')
+
+X = webshell_tdf.transform(webshell_files_content)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y)
 
 
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 
-clf = LogisticRegression()
+clf = RandomForestClassifier()
 
-clf.fit(X_train, y_train)
-clf.score(X_test, y_test)
+clf.fit(X, y)
+# joblib.dump(clf, 'AndShell_scan.m', )
 
+acc = clf.score(X_test, y_test)
+print(y_test)
+print(acc)
 
 
 
