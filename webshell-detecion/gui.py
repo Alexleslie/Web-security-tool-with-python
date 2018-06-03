@@ -2,6 +2,9 @@ from tkinter import *
 import tkinter.messagebox as messagebox
 from tkinter import scrolledtext
 import os
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.externals import joblib
+import time
 
 
 def load_file(file_path, encoding='ISO-8859-15'):
@@ -43,10 +46,6 @@ class Application(Frame):
 
 
     def webshell_scan(self):
-        from sklearn.ensemble import RandomForestClassifier
-        from sklearn.externals import joblib
-        import time
-
         webshell_vectorizer = joblib.load('AndShell_dict.m')
         clf = joblib.load('AndShell_scan.m')
 
@@ -64,7 +63,6 @@ class Application(Frame):
                 continue
             else:
                 self.bad_list.append(full_files[i])
-
 
         self.content.delete(1.0, END)
 
@@ -115,8 +113,8 @@ class Application(Frame):
         messagebox.showinfo('结果', '保存成功 - 文件名为 result.txt')
 
 
-
-app = Application()
-app.master.title('A&D-webshell扫描器')
-app.master.geometry('520x400')
-app.mainloop()
+if __name__ == '__main__':
+    app = Application()
+    app.master.title('A&D-webshell扫描器')
+    app.master.geometry('520x400')
+    app.mainloop()
