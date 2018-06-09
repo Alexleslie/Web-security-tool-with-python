@@ -10,4 +10,4 @@ python实现的各种各样的脚本
 + socket_connect： socket连接 -  establish socket connection
 + ssh-connect-and-brute-force ： ssh连接和爆破 - ssh connection and brute force 
 + url_catch: 爬虫抓取url  - python spider - aim to catch the urls 
-+ ctf : ctf payload and scripts
++ ctf : ctf payload and scripts. 
