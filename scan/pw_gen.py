@@ -25,13 +25,13 @@ class User:
         self.old_account = u_dic['old_account']
             
     def combinations(self, tem_list, number):
-        com_list = itertools.combinations(tem_list, num)
+        com_list = itertools.combinations(tem_list, number)
         value_list = []
         for i in com_list:
             combinations = ''
-                for j in i:
-                    combinations += j
-                    value_list.append(combinations)
+            for j in i:
+                combinations += j
+                value_list.append(combinations)
         return value_list
         
     
@@ -41,7 +41,7 @@ class User:
         birthday_list = [self.year, self.day, self.mouth, self.year+self.mouth+self.day, 
                      self.mouth+self.day, self.year+self.mouth]
         if self.phone:
-            phone_list = [self.phone, self.phone[-4:], self.[-5:], self.[-3:]]
+            phone_list = [self.phone, self.phone[-4:], self.phone[-5:], self.phone[-3:]]
         else:
             phone_list = []
         
@@ -54,7 +54,8 @@ class User:
             tem_list = self.combinations(all_list, i)
             password_list += tem_list
         
-        self.password_list = password_list
+        self.password_list = set(password_list)
+        print self.password_list
              
 
 if __name__ == '__main__':
@@ -62,4 +63,4 @@ if __name__ == '__main__':
                  'mouth':'09', 'day':'01', 'phone':'13322200789', 'email':'drinkmorewater@qq.com', 
                   'email_name':'drinkmorewater', 'qq':'666666', 'old_account':'leslie'}                                  
     user = User(User_dict)
-    user.password_genarate()
+    user.password_generate()
