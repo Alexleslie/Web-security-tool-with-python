@@ -11,3 +11,5 @@ python实现的各种各样的脚本
 + ssh-connect-and-brute-force ： ssh连接和爆破 - ssh connection and brute force 
 + url_catch: 爬虫抓取url  - python spider - aim to catch the urls 
 + ctf : ctf payload and scripts. 
++ scan : 自己整合和编写的扫描器，目前功能并不多
++ webshell-detection： 一个类似于D盾的扫描工具，可以批量扫描webshell
