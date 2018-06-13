@@ -21,7 +21,7 @@ class User:
         
         self.qq = u_dic['qq']
         self.email = u_dic['email']
-        self.email_name = u_dic['email_name']
+    
         self.old_account = u_dic['old_account']
             
     def combinations(self, tem_list, number):
@@ -45,7 +45,7 @@ class User:
         else:
             phone_list = []
         
-        other_list  = [self.abb_name, self.qq, self.email, self.email_name,self.old_account]
+        other_list  = [self.abb_name, self.qq, self.email,self.old_account]
         all_list = [i for i in other_list if len(i)> 0]
         all_list = all_list + name_list + birthday_list + phone_list 
         
@@ -61,6 +61,6 @@ class User:
 if __name__ == '__main__':
     User_dict = {'first_name':'san', 'last_name':'zhang', 'abb_name':'ZS', 'year':'2001', 
                  'mouth':'09', 'day':'01', 'phone':'13322200789', 'email':'drinkmorewater@qq.com', 
-                  'email_name':'drinkmorewater', 'qq':'666666', 'old_account':'leslie'}                                  
+                 'qq':'666666', 'old_account':'leslie'}                                  
     user = User(User_dict)
     user.password_generate()
