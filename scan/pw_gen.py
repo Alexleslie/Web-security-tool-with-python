@@ -45,7 +45,8 @@ class User:
         else:
             phone_list = []
         
-        other_list  = [self.abb_name, self.qq, self.email,self.old_account]
+        other_list = [self.abb_name, self.abb_name.upper(), self.abb_name.lower(),
+                      self.qq, self.email, self.old_account]
         all_list = [i for i in other_list if len(i)> 0]
         all_list = all_list + name_list + birthday_list + phone_list 
         
@@ -55,7 +56,7 @@ class User:
             password_list += tem_list
         
         self.password_list = set(password_list)
-        print self.password_list
+        return self.password_list
              
 
 if __name__ == '__main__':
